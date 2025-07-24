@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  min-height: 450vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.background-stars {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.bg-star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+.hero-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  z-index: 1;
+}
+
+.orion-constellation {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.star {
+  position: absolute;
+  background: cyan;
+  border-radius: 50%;
+  box-shadow: 0 0 1vw cyan;
+  animation: twinkle 2s infinite alternate;
+  width: 1vw;
+  height: 1vw;
+}
+
+.line {
+  position: absolute;
+  height: 0.2vw;
+  background: rgba(0, 255, 255, 0.3);
+  transform-origin: left;
+  width: 0;
+  transition: width 0.5s ease-out;
+}
+
+/* Remove manual line positioning, handled dynamically in JSX 
+.line1, .line2, .line3, .line4, .line5, .line6, .line7 {} */
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .star {
+    width: 1.5vw;
+    height: 1.5vw;
+    box-shadow: 0 0 1.5vw cyan;
+  }
+  .line {
+    height: 0.3vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .star {
+    width: 2vw;
+    height: 2vw;
+    box-shadow: 0 0 2vw cyan;
+  }
+  .line {
+    height: 0.4vw;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2vw;
+  border-radius: 1vw;
+  z-index: 10;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup p {
+  margin: 0 0 1.5vw 0;
+  font-size: 1.2rem;
+}
+
+.popup button {
+  background: cyan;
+  border: none;
+  padding: 1vw 2vw;
+  border-radius: 0.5vw;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.popup button:hover {
+  background: rgba(0, 255, 255, 0.8);
+}
