@@ -1,0 +1,480 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  min-height: 200vh; /* Match JSX scroll space */
+}
+
+.background-stars {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.bg-star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+.hero-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  z-index: 1;
+}
+
+.orion-constellation {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.star {
+  position: absolute;
+  background: cyan;
+  border-radius: 50%;
+  box-shadow: 0 0 1vw cyan;
+  animation: twinkle 2s infinite alternate;
+}
+
+.line {
+  position: absolute;
+  height: 0.2vw;
+  background: rgba(0, 255, 255, 0.7);
+  transform-origin: left;
+  transition: width 0.5s ease-out;
+}
+
+/* Services card */
+.services-card {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  z-index: 3;
+  width: 80vw;
+  max-height: 70vh;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, top 0.5s ease-in-out, bottom 0.5s ease-in-out;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Neon glow */
+}
+
+.services-card.active {
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-content h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 5px #00f7ff; /* Neon glow */
+}
+
+.card-content h5 {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 5px #00f7ff; /* Neon glow */
+}
+
+.service-section {
+  margin-bottom: 2rem;
+  border-left: 3px solid #00f7ff; /* Neon border */
+  padding-left: 1rem;
+}
+
+.service-section h3 {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00f7ff; /* Neon blue */
+  text-shadow: 0 0 3px #00f7ff;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.service-content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.web-design .service-content,
+.smm .service-content {
+  flex-direction: row; /* Text left, image right */
+}
+
+.seo .service-content {
+  flex-direction: row-reverse; /* Text right, image left */
+}
+
+.text-content {
+  flex: 1;
+}
+
+.service-image {
+  flex: 1;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.service-image:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+}
+
+.service-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.service-list li i {
+  color: #ff00ff; /* Neon pink for list icons */
+  text-shadow: 0 0 3px #ff00ff;
+}
+
+.service-list li:hover {
+  color: #00ff00; /* Neon green on hover */
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.service-section p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+/* About card */
+.about-card {
+  position: fixed;
+  top: 50%;
+  left: -100%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  z-index: 3;
+  width: 80vw;
+  max-height: 70vh;
+  overflow-y: auto;
+  transition: left 0.5s ease-in-out;
+}
+
+.about-card.active {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Navbar styles */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Consistent gap between buttons */
+  margin-right: 1rem; /* Add small margin to separate from search bar */
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  transition: padding-right 0.3s ease;
+  position: relative;
+}
+
+.nav-text {
+  display: none; /* Hidden by default, takes no space */
+  color: white;
+  font-size: 1rem;
+  white-space: nowrap;
+  margin-left: 0.5rem; /* Space between icon and text when visible */
+  transition: display 0.3s ease;
+}
+
+.nav-button:hover {
+  padding-right: 2rem; /* Space for text on hover */
+}
+
+.nav-button:hover .nav-text {
+  display: inline; /* Show text on hover */
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hidden off-screen */
+  width: 200px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 11;
+  padding: 1rem;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.active {
+  left: 0; /* Slide in */
+}
+
+.sidebar-close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar-buttons .nav-button {
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.sidebar-buttons .nav-text {
+  display: inline; /* Always show text in sidebar */
+}
+
+/* Search bar styles */
+.search-tips-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+
+.search-input {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border-radius: 9999px;
+  border: none;
+  font-size: 1rem;
+  width: 150px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00f7ff; /* Neon blue */
+  font-size: 1rem;
+  text-shadow: 0 0 3px #00f7ff; /* Minimal glow */
+}
+
+/* Icon-specific styles */
+.home-button i,
+.menu-button i {
+  color: #00f7ff; /* Neon blue */
+  text-shadow: 0 0 3px #00f7ff; /* Minimal glow */
+}
+
+.services-button i {
+  color: #00f7ff; /* Neon blue */
+  text-shadow: 0 0 3px #00f7ff; /* Minimal glow */
+}
+
+.blog-button i {
+  color: #ff00ff; /* Neon pink */
+  text-shadow: 0 0 3px #ff00ff; /* Minimal glow */
+}
+
+.about-button i {
+  color: #ffff00; /* Neon yellow */
+  text-shadow: 0 0 3px #ffff00; /* Minimal glow */
+}
+
+.contact-button i {
+  color: #00ff00; /* Neon green */
+  text-shadow: 0 0 3px #00ff00; /* Minimal glow */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .star {
+    width: 1.5vw;
+    height: 1.5vw;
+    box-shadow: 0 0 1.5vw cyan;
+  }
+  .line {
+    height: 0.3vw;
+  }
+  .services-card,
+  .about-card {
+    width: 90vw;
+  }
+  .nav-button {
+    font-size: 1.2rem;
+    padding: 0.3rem;
+  }
+  .nav-button:hover {
+    padding-right: 1.5rem; /* Adjusted for smaller screens */
+  }
+  .nav-text {
+    font-size: 0.9rem;
+  }
+  .nav-right {
+    gap: 0.8rem; /* Slightly smaller gap */
+  }
+  .search-tips-container {
+    padding: 0.15rem;
+  }
+  .search-input {
+    width: 120px;
+  }
+  .service-section h3 {
+    font-size: 1.3rem;
+  }
+  .service-content {
+    flex-direction: column !important; /* Stack text and image vertically */
+    align-items: center;
+  }
+  .service-image {
+    max-width: 200px;
+  }
+  .card-content h2 {
+    font-size: 1.8rem;
+  }
+  .service-list li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .nav-bar {
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  .nav-left {
+    gap: 0.5rem;
+  }
+  .menu-button {
+    display: block; /* Show menu button on small screens */
+  }
+  .nav-right {
+    display: none; /* Hide nav-right on small screens */
+  }
+  .nav-right-container {
+    display: none; /* Hide container on small screens */
+  }
+  .search-tips-container {
+    display: flex; /* Ensure search bar is visible */
+    padding: 0.15rem;
+  }
+  .search-input {
+    width: 100px;
+  }
+}
+
+@media (min-width: 501px) {
+  .menu-button {
+    display: none; /* Hide menu button on larger screens */
+  }
+  .nav-right {
+    display: flex; /* Show nav-right on larger screens */
+  }
+  .nav-bar {
+    justify-content: space-between; /* Keep nav-left on left, nav-right-container on right */
+  }
+  .nav-right-container {
+    display: flex; /* Show container on larger screens */
+    align-items: center;
+  }
+}
