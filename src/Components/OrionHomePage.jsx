@@ -33,6 +33,7 @@ function OrionHomePage() {
     phone: '',
     message: '',
   });
+  const [formStatus, setFormStatus] = useState('');
   const starContainerRef = useRef(null);
   const lineRefs = useRef([]);
   const servicesCardRef = useRef(null);
@@ -281,7 +282,7 @@ function OrionHomePage() {
   };
 
   // Handle contact form submission
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
     const errors = {
       name: validateField('name', formData.name),
@@ -292,18 +293,36 @@ function OrionHomePage() {
     setFormErrors(errors);
 
     if (Object.values(errors).every((error) => !error)) {
-      console.log('Contact Form Submitted:', formData);
-      setShowContactCard(false);
-      setFormData({ name: '', email: '', phone: '', message: '' }); // Reset form
-      setFormErrors({ name: '', email: '', phone: '', message: '' });
+      try {
+        const response = await fetch('https://formspree.io/f/mjkoldwe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setFormStatus('Form submitted successfully!');
+          setShowContactCard(false);
+          setFormData({ name: '', email: '', phone: '', message: '' });
+          setFormErrors({ name: '', email: '', phone: '', message: '' });
+        } else {
+          setFormStatus('Error submitting form. Please try again.');
+        }
+      } catch (error) {
+        setFormStatus('Error submitting form. Please try again.');
+      }
     }
   };
 
   // Close contact card
   const closeContactCard = () => {
     setShowContactCard(false);
-    setFormData({ name: '', email: '', phone: '', message: '' }); // Reset form
+    setFormData({ name: '', email: '', phone: '', message: '' });
     setFormErrors({ name: '', email: '', phone: '', message: '' });
+    setFormStatus('');
   };
 
   // Close services card
@@ -619,7 +638,7 @@ function OrionHomePage() {
         <div className="card-content">
           <h2>Contact Us</h2>
           <p>We're here to help you launch your digital presence. Fill out the form below, and we'll get back to you soon!</p>
-          <form onSubmit={handleContactSubmit} className="contact-form">
+          <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onSubmit={handleContactSubmit} className="contact-form">
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -683,6 +702,7 @@ function OrionHomePage() {
               <button type="submit" className="submit-button">Submit</button>
               <button type="button" onClick={closeContactCard} className="close-button" aria-label="Close Contact Card">Close</button>
             </div>
+            {formStatus && <p className="form-status">{formStatus}</p>}
           </form>
         </div>
       </div>
